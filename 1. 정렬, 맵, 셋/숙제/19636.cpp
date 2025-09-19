@@ -3,13 +3,19 @@
 
 using namespace std;
 
-void calcL(int l, int& l2, int a, int t){ //기초대사량 계산
-    if(abs(l-(l2+a))>t){ //abs: 절대값 함수
-        l2+=(l-(l2+a))/2;
+void calcL(long long l, long long& l2, long long a, long long t){ //기초대사량 계산
+    long long diff = l - (l2 + a);
+    if(abs(diff) > t){ 
+        // 바닥함수 구현: 음수일 때 주의
+        if(diff >= 0) {
+            l2 += diff / 2;
+        } else {
+            l2 += (diff - 1) / 2;  // 음수의 바닥함수
+        }
     }
 }
 
-void diet(int w0, int l0, int t, int d, int l, int a, int& w1, int& l1, int& w2, int& l2){
+void diet(long long w0, long long l0, long long t, long long d, long long l, long long a, long long& w1, long long& l1, long long& w2, long long& l2){
     w1=w0;
     w2=w0;
     l1=l0;
@@ -25,9 +31,9 @@ void diet(int w0, int l0, int t, int d, int l, int a, int& w1, int& l1, int& w2,
     }
 }
 
-int main(){
-    int w0, l0, t, d, l, a;
-    int w1, w2, l1, l2; 
+int main(){    
+    long long w0, l0, t, d, l, a;
+    long long w1, w2, l1, l2; 
     //기초대사량 고려X: w1, l1
     //기초대사량 고려O: w2, l2
 
@@ -46,8 +52,8 @@ int main(){
     } else{
         cout << w2 << ' ' << l2;
         if((l0-l2)>0) {
-            cout << " YOYO";
-        }else cout << " NO";
+            cout << " YOYO\n";
+        }else cout << " NO\n";
     }
 
     return 0;
